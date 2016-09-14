@@ -5,7 +5,7 @@
 // 2016-09-08 osfans <waxaca@163.com>
 //
 
-#include <endian.h>
+#include <arpa/inet.h>
 #include <boost/algorithm/string.hpp>
 #include <boost/locale.hpp>
 
@@ -106,7 +106,7 @@ an<Translation> CharsetTranslator::Query(const string& input,
       if (n < 8) code.append(8 - n, '0');
       sscanf(code.c_str(), "%lx", &i);
       if (i == 0) return nullptr;
-      i = be32toh(i);
+      i = ntohl(i);
       const char* c = (const char*)&i;
       s = boost::locale::conv::to_utf<char>(c, c + 4, charset_);
     }
